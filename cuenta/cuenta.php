@@ -161,21 +161,23 @@
             				<div class="caja-formulario-login mb-5 offset-md-5">
                                 <div class="card-body">
                                     <h3 class="text-center mb-4 titulo-login">Inicio de sesión</h3>
-                                        <form action="/procesar_formulario" method="post">
+                                        <form action="procesar-login.php" method="post">
                                             <div class="form-group">
                                                 <label for="email-login"> Correo electrónico <label style="color:red" > *  </label> </label> 
-                                                <input type="text" class="form-control mb-3" id="email-login" name="email">
+                                                <input type="text" class="form-control mb-3" id="email-login" name="email-login">
+                                               
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="password-login"> Contraseña <label style="color:red" > *  </label>  </label>
                                                 <input type="password" class="form-control mb-3" id="password-login" name="password-login">
+                                        
                                                 <a href="olvidastecontraseña.php"> ¿Olvidaste la contraseña? </a>
                                             </div>
 
                                             
                                             
-                                            <button type="submit" class=" botones-login-register btn btn-block mt-3 " style="background-color: #b0d688; color: white; width:180px">Iniciar sesión</button>
+                                            <button name="login" type="submit" class=" botones-login-register btn btn-block mt-3 " style="background-color: #b0d688; color: white; width:180px">Iniciar sesión</button>
                                         </form>
                                 </div>
             					
@@ -190,27 +192,34 @@
             				<div class="caja-formulario-login mb-5">
                                 <div class="card-body">
                                     <h3 class="text-center mb-4">Registrarse</h3>
-                                        <form action="/procesar_formulario" method="post">
+                                        <form action="procesar-registro.php" method="post">
                                             <div class="form-group">
                                                 <label for="name"> Nombre <label style="color:red" > *  </label> </label> 
                                                 <input type="text" class="form-control mb-3" id="name" name="name">
+                                                
+                                                   
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="lastname"> Apellidos <label style="color:red" > *  </label>  </label>
                                                 <input type="text" class="form-control mb-3" id="lastname" name="lastname">
+                                                
                                             </div>
                                             <div class="form-group">
                                                 <label for="email-register"> Correo electrónico <label style="color:red" > *  </label> </label> 
                                                 <input type="text" class="form-control mb-3" id="email-register" name="email-register">
+                                                
+                                                   
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="password-register"> Contraseña <label style="color:red" > *  </label>  </label>
                                                 <input type="password" class="form-control mb-3" id="password-register" name="password-register">
+                                                
+                                                             
                                             </div>
                                             
-                                            <button type="submit" class="botones-login-register btn  btn-block mt-3 " style="background-color: #b0d688; color:white; width:180px">Registrarse</button>
+                                            <button name="registrar" type="submit" class="botones-login-register btn  btn-block mt-3 " style="background-color: #b0d688; color:white; width:180px">Registrarse</button>
                                         </form>
                                 </div>
             					
