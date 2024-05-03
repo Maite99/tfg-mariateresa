@@ -1,0 +1,295 @@
+/*  FUENTES */
+.cantata-one-regular {
+  font-family: "Cantata One", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+}
+
+/* para quitar el hueco blanco del lado derecho */
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+/* INICIO NAVBAR */
+.a-navbar:hover{
+  color: #b0d688;
+}
+
+
+/* nav:active{
+  color: #b0d688;
+}
+.a-navbar:active{
+  color: #b0d688;
+}
+.active-menu:active{
+  color: #b0d688;
+} */
+/* FINAL NAVBAR */
+
+/* INICIO CARRUSEL */
+.carrusel-principal {
+    max-height: 700px; /* Ajusta la altura máxima según tus necesidades */
+    overflow: hidden; /* Para recortar el contenido que excede la altura máxima */
+  }
+  /* FINAL CARRUSEL */
+
+  /* INICIO TEXTO CON IMÁGENES */
+  .titulo-texto-1, .subtitulo-texto-2 {
+    text-align: center;
+    font-style: italic;
+  }
+  .texto-1, .texto-2{
+    text-align: justify;
+    font-size: 18px;
+  }
+  
+
+  .texto-1-2, .texto-imagenes-txt h2{
+    text-align: center;
+    font-style: italic;
+}
+  
+
+ /* INICIO CATEGORIAS */
+.imagenescategorias{
+    width: 326px;
+    height: 322px;
+    border-radius: 2%;
+}
+
+
+.imagenescategorias:hover {
+  filter: brightness(0.8);
+  
+}
+.categorias h2{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.categorias, .vendidos, .contacto{
+    text-align: center;
+}
+/* FINAL CATEGORIAS */
+
+/* INICIO LOS MAS VENDIDOS */
+.img-vendidos{
+    height: 300px;
+    border-radius: 2%;
+}
+
+.caja-productos{
+  display:flex;
+  justify-content: center;
+}
+
+.carousel-poductos{
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+/* FINAL LOS MAS VENDIDOS */
+
+/* INICIO INFORMACIÓN */
+
+.icono-informacion{
+  display: block;
+  text-align: center;
+  font-size: 40px;
+  color: #b0d688;
+  
+}
+
+.informacion{
+  text-align: center;
+}
+
+
+/* FINAL INFORMACIÓN */
+
+
+/* INICIO FORMULARIO */
+  .bg-image {
+    background-image: url('../../img/fondo-formulario.jpg');
+    height: 100%;
+    /* Ajuste del tamaño de la imagen */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .form-container {
+    background-color: rgba(255, 255, 255, 0.7); /* Opacidad  */
+    border-radius: 10px; 
+    padding: 20px;
+  }
+
+  .boton-formulario{
+   background-color: black;
+   border-color: black;
+  }
+
+  .boton-formulario:hover{
+    background-color: #b0d688;
+    border-color:#b0d688;
+  }
+/*FIN FORMULARIO */
+
+
+/*INICIO FOOTER */
+.container-footer{
+  background-color: #222222;
+}
+
+.enlacedeinteres, .contacto, .redes, .texto-contacto{
+  color: white;
+}
+
+.primera-columna-footer a, .tercera-columna-footer a{
+  color: white;
+  text-decoration: none;
+}
+.primera-columna-footer a:hover, .tercera-columna-footer a:hover{
+  color:#b0d688;
+}
+
+.tercera-columna-footer{
+  text-align: center;
+}
+
+.tercera-columna-footer a{
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+/*    TEXTO PRODUCTOS   */
+.caja-texto-productos{
+  text-align: center;
+}
+
+.texto1-productos, .texto2-productos, .texto-3{
+  font-size: 18px;
+}
+
+.texto-3{
+  font-style: italic;
+}
+
+/* IMAGENES PRODUCTOS */
+
+.imagenesproductos{
+  width: 326px;
+    height: 322px;
+    border-radius: 2%;
+}
+
+
+.imagenesproductos:hover {
+  filter: brightness(0.8);
+  
+}
+
+
+/* ENLACES DE INTERÉS */
+.texto-enlacesdeinteres{
+  margin: 70px;
+  text-align: justify;
+}
+
+
+/* IMAGEN Y PRESENTACION PRODUCTOS */
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  background-color: #b0d688; 
+}
+
+.parrafo-producto{
+  text-align: justify;
+}
+
+.boton-anadir{
+  height: 50px;
+  width: 180px;
+  background-color: #b0d688;
+  color: white;
+  border: none;
+  border-radius: 2px;
+}
+
+.carousel-item  {
+  width: 100%;
+  object-fit: cover; 
+}
+
+.nav-tabs a{
+  color: black;
+}
+.nav-tabs a:hover{
+  color: #b0d688;
+}
+
+.titulo-productos-relacionados{
+  text-align: center;
+}
+
+
+/* BUSCADOR */
+
+.buscador input{
+  width: 450px;
+  border-radius: 5px;
+}
+
+.buscador input:hover{
+  border: 2px solid #b0d688;
+}
+
+.buscador input:focus{
+  border: 2px solid #b0d688;
+  outline: none;
+}
+
+.imagen-producto-busqueda {
+  width: 200px; 
+  height: 200px; 
+  border-radius: 5px; 
+  margin-bottom: 10px; /
+}
+
+.nombre-producto-busqueda {
+  font-size: 16px; 
+  color: #333; 
+  margin-bottom: 5px; 
+}
+
+.caja-producto-busqueda{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.enlace-producto-busqueda{
+  text-decoration: none;
+  color: black;
+}
+
+.container-footer-busqueda{
+  flex: 1;
+  
+}
+
+.form-group a{
+  color: black;
+}
+
+
+/* OLVIDASTE LA CONTRASEÑA FORMUALRIO */
+
+.email-olvidaste{
+  width: 500px;
+}
