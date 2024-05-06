@@ -19,7 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Muestra un mensaje de error si el correo está registrado
             echo "Este correo electrónico ya está registrado";
         } else {
-            $insertar = "INSERT INTO usuarios (nombre, apellidos, email, contrase_hash) VALUES ('$name', '$lastname', '$emailregister', '$passwordregister')";
+            // Para que no se vea la contraseña en la base de datos
+            $hashed_password = password_hash($passwordregister, PASSWORD_DEFAULT);
+
+            $insertar = "INSERT INTO usuarios (nombre, apellidos, email, contrase_hash) VALUES ('$name', '$lastname', '$emailregister', '$hashed_password')";
             if (mysqli_query($conn, $insertar)) {
                 header('Location: micuenta.php');
                 exit; // Termina el script después de la redirección

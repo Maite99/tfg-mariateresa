@@ -383,6 +383,8 @@
                     </div>
                 </div>
             </div>
+            
+        </div>
         </div>
 
         <!-- PRODUCTOS RELACIONADOS -->

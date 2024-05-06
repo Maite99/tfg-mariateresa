@@ -383,6 +383,8 @@
                     </div>
                 </div>
             </div>
+            
+        </div>
         </div>
 
 
@@ -399,7 +401,7 @@
                 <div class="row  d-flex flex-row ">
              
                     <div class="categoria-inciensos col-lg-3 col-md-6 col-sm-6 mr-2">
-                        <a href="palosanto7hierbas.php">
+                        <a href="palosanto7dias.php">
                             <img src="../../img/pastillas7diaslimpieza.jpg"  alt="" class="imagenescategorias">
                         </a>
                         <h5 class="texto-categorias mt-2">Sahumerios 7 días de Limpieza</h5>
@@ -414,7 +416,7 @@
                         <p>3,65€</p>
                     </div>
 
-                    <div class="categoria-portainciensos col-lg-3 col-md-6 col-sm-6 mr-2">
+                    <div class="categoria-inciensos col-lg-3 col-md-6 col-sm-6 mr-2">
                         <a href="palosantolimpiar.php">
                             <img src="../../img/bombita-limpiar.jpg"  alt="" class="imagenescategorias">
                         </a>
@@ -422,7 +424,7 @@
                         <p>3,65€</p>
                     </div>
 
-                    <div class="categoria-cristalesyminerales col-lg-3 col-md-6 col-sm-6 mr-2">
+                    <div class="categoria-inciensos col-lg-3 col-md-6 col-sm-6 mr-2">
                         <a href="palosantopurificar.php">
                             <img src="../../img/bombita-purificar.jpg"alt="" class="imagenescategorias">
                         </a>

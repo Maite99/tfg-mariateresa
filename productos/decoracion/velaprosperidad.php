@@ -125,7 +125,7 @@
                 }
 
             // SENTENCIA PARA OBTENER LA IMAGEN DEL PRODUCTO 
-            $imagen1 = "SELECT ruta FROM imagenes WHERE id=101";
+            $imagen1 = "SELECT ruta FROM imagenes WHERE id=201";
 
             // ESTABLECER LA QUERY PARA LA INFORMACION GENERAL
             $query_imagen1 = mysqli_query($conexion, $imagen1);
@@ -367,12 +367,12 @@
                 <!-- Productos relacionados -->
                 <div class="row  d-flex flex-row ">
     
-                    <div class="categoria-portainciensos col-lg-3 col-md-6 col-sm-6 mr-2">
-                        <a href="velaprosperidad.php">
-                            <img src="../../img/vela-naranja.jpg"  alt="" class="imagenescategorias">
+                <div class="categoria-portainciensos col-lg-3 col-md-6 col-sm-6 mr-2">
+                        <a href="velapetrichor.php">
+                            <img src="../../img/vela-lluviaytierr.jpg"  alt="" class="imagenescategorias">
                         </a>
-                        <h5 class="texto-categorias mt-2">Vela Prosperidad - Naranja especiada</h5>
-                        <p>12,50€</p>
+                        <h5 class="texto-categorias mt-2">Vela Petrichor - Lluvia y Tierra</h5>
+                        <p>21,80€</p>
                     </div>
                     
                     <div class="categoria-portainciensos col-lg-3 col-md-6 col-sm-6 mr-2">
@@ -410,6 +410,8 @@
         
         
 
+        
+
         <!-- INICIO FOOTER -->
        <footer class="container-footer">
         <div class="container  " >
@@ -418,13 +420,13 @@
                 <div class="col-4">
                     <div class="primera-columna-footer mt-5 mb-5">
                         <p class="enlacedeinteres "><strong>ENLACE DE INTERÉS</strong></p>
-                        <a href="../../enlacesdeinteres/avisolegal.php">Aviso Legal</a>
+                        <a href="../../enlacesdeinteres/avisolegal.php" target="_blank">Aviso Legal</a>
                         <br>
-                        <a href="../../enlacesdeinteres/politicadeprivacidad.php">Política de Privacidad</a>
+                        <a href="../../enlacesdeinteres/politicadeprivacidad.php" target="_blank">Política de Privacidad</a>
                         <br>
-                        <a href="../../enlacesdeinteres/politicadeenviosydevoluciones.php">Política de Envíos y Devoluciones</a>
+                        <a href="../../enlacesdeinteres/politicadeenviosydevoluciones.php" target="_blank">Política de Envíos y Devoluciones</a>
                         <br>
-                        <a href="../../enlacesdeinteres/politicadecookies.php">Política de Cookies</a>
+                        <a href="../../enlacesdeinteres/politicadecookies.php" target="_blank">Política de Cookies</a>
                     </div>
                 </div>
                 <!-- SEGUNDA COLUMNA FOOTER -->

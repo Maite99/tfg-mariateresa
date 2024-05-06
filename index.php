@@ -358,54 +358,54 @@
             <!-- FINAL LOS MÁS VENDIDOS -->
 
             
-</main>
+            </main>
         <!-- FINAL MAIN -->
 
 
        <!-- INICIO FOOTER -->
-       <footer class="container-footer">
-        <div class="container  " >
-            <div class="row  d-flex flex-row">
-                <!-- PRIMERA COLUMNA FOOTER -->
-                <div class="col-4">
-                    <div class="primera-columna-footer mt-5 mb-5">
-                        <p class="enlacedeinteres "><strong>ENLACE DE INTERÉS</strong></p>
-                        <a href="enlacesdeinteres/avisolegal.php" target="_blank">Aviso Legal</a>
-                        <br>
-                        <a href="enlacesdeinteres/politicadeprivacidad.php" target="_blank">Política de Privacidad</a>
-                        <br>
-                        <a href="enlacesdeinteres/politicadeenviosydevoluciones.php" target="_blank">Política de Envíos y Devoluciones</a>
-                        <br>
-                        <a href="enlacesdeinteres/politicadecookies.php" target="_blank">Política de Cookies</a>
-                    </div>
-                </div>
-                <!-- SEGUNDA COLUMNA FOOTER -->
-                <div class="col-4">
-                    <div class="segunda-columna-footer">
-                        <p class="contacto mt-5"><strong>CONTACTO</strong></p>
-                        <p class="texto-contacto">Estaremos encantados de resolver cualquier duda que tengas. 
-                            Contáctanos en <a href="mailto:info@mistico.com?" style="color: #b0d688"> info@mistico.com </a>
+        <footer class="container-footer">
+            <div class="container  " >
+                <div class="row  d-flex flex-row">
+                    <!-- PRIMERA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="primera-columna-footer mt-5 mb-5">
+                            <p class="enlacedeinteres "><strong>ENLACE DE INTERÉS</strong></p>
+                            <a href="enlacesdeinteres/avisolegal.php" target="_blank">Aviso Legal</a>
                             <br>
-                            Whatsapp  +34 618 398 065
-                        </p>
+                            <a href="enlacesdeinteres/politicadeprivacidad.php" target="_blank">Política de Privacidad</a>
+                            <br>
+                            <a href="enlacesdeinteres/politicadeenviosydevoluciones.php" target="_blank">Política de Envíos y Devoluciones</a>
+                            <br>
+                            <a href="enlacesdeinteres/politicadecookies.php" target="_blank">Política de Cookies</a>
+                        </div>
                     </div>
-                </div>
-                <!-- TERCERA COLUMNA FOOTER -->
-                <div class="col-4">
-                    <div class="tercera-columna-footer">
-                        <p class="redes mt-5"><strong>¿QUIERES SEGUIRNOS EN REDES?</strong></p>
-                        <a href="https://www.instagram.com/greenwitchart_/"><i class="bi bi-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@greenwitchart_?lang=es"><i class="bi bi-tiktok"></i></a>
-                        <a href="https://www.facebook.com/p/Green-Witch-Art-100080655604514/"><i class="bi bi-facebook"></i></a>
-                        <a href="https://www.pinterest.es/GreenWitchArt_/"><i class="bi bi-pinterest"></i></a>
+                    <!-- SEGUNDA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="segunda-columna-footer">
+                            <p class="contacto mt-5"><strong>CONTACTO</strong></p>
+                            <p class="texto-contacto">Estaremos encantados de resolver cualquier duda que tengas. 
+                                Contáctanos en <a href="mailto:info@mistico.com?" style="color: #b0d688"> info@mistico.com </a>
+                                <br>
+                                Whatsapp  +34 618 398 065
+                            </p>
+                        </div>
                     </div>
-                    
-                </div>
+                    <!-- TERCERA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="tercera-columna-footer">
+                            <p class="redes mt-5"><strong>¿QUIERES SEGUIRNOS EN REDES?</strong></p>
+                            <a href="https://www.instagram.com/greenwitchart_/"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@greenwitchart_?lang=es"><i class="bi bi-tiktok"></i></a>
+                            <a href="https://www.facebook.com/p/Green-Witch-Art-100080655604514/"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.pinterest.es/GreenWitchArt_/"><i class="bi bi-pinterest"></i></a>
+                        </div>
+                        
+                    </div>
 
+                </div>
             </div>
-        </div>
-    </footer>
-    <!-- FINAL FOOTER -->
+        </footer>
+        <!-- FINAL FOOTER -->
     </div>
 
 

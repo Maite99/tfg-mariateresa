@@ -104,7 +104,7 @@
                                 </li>
                                 <!-- ICONO USER-->
                                 <li class="nav-item">
-                                    <a class="nav-link a-navbar" href="../cuenta/cuenta.php" role="button" aria-expanded="false">
+                                    <a class="nav-link a-navbar" href="cuenta/cuenta.php" role="button" aria-expanded="false">
                                         <i class="bi bi-person-circle"></i>
                                     </a>
                                 </li>
@@ -130,62 +130,37 @@
                 </div>
             </nav>
         </header>
-        <hr>
         <!-- FINAL HEADER -->
 
         <!-- INICIO MAIN -->
-<main> 
-
-        <!-- INICIO TEXTO -->
-        <section class="texto-productos mt-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 ps-lg-5 ">
-                        <div class="caja-texto-productos">
-                            <h3>🌟 Reestablece tu contraseña 🌟</h3>
-                            
-                        </div>   
+        <main> 
+            <!-- INICIO TEXTO -->
+                <section class="texto-productos mt-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 ps-lg-5 ">
+                                <div class="caja-texto-productos">
+                                    <h3>🌟 Vetana de usuario  🌟</h3>
+                                    <h4>Todavia queda por hacer</h4>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    
+                                </div>   
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
- 
+                </section>
+        
              <!-- FINAL TEXTO -->
 
-         
-             <div class="container">
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-6"> <!-- Columna para controlar el ancho del formulario -->
-            <div class="card-body">
-                <form action="cuenta.php" method="post">
-                    <div class="form-group">
-                        <label for="email-olvidaste">Correo electrónico <label style="color:red">*</label></label> 
-                        <input type="text" class="form-control email-olvidaste mb-3" id="email-olvidaste" name="email.olvdaste">
-                    </div>
-                    <div class="form-group">
-                        <label for="password-olvidaste">Nueva contraseña <label style="color:red">*</label></label> 
-                        <input type="password" class="form-control password-olvidaste mb-3" id="password-olvidaste" name="password-olvidaste">
-                    </div>
-                    <div class="form-group">
-                        <label for="password-confirmation-olvidaste">Confirmar nueva contraseña <label style="color:red">*</label></label> 
-                        <input type="password" class="form-control password-confirmation-olvidaste mb-3" id="password-confirmation-olvidaste" name="password-confirmation-olvidaste">
-                    </div>
-                    <div class="row justify-content-center mb-2">
-                        <button type="submit" class="justify-content-center btn btn-block mt-3" style="background-color: #b0d688; color: white; width:180px">Enviar</button>
-                    </div>  
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+        </main>
 
+        <!--FINAL MAIN   -->
 
-</main>
-
-        
 
         <!-- INICIO FOOTER -->
-       <footer class="container-footer">
+        <footer class="container-footer">
         <div class="container  " >
             <div class="row  d-flex flex-row">
                 <!-- PRIMERA COLUMNA FOOTER -->
@@ -229,10 +204,6 @@
     </footer>
     <!-- FINAL FOOTER -->
   </div>
-    
-    
-
-        
 
 
 
