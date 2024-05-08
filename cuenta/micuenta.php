@@ -104,7 +104,7 @@
                                 </li>
                                 <!-- ICONO USER-->
                                 <li class="nav-item">
-                                    <a class="nav-link a-navbar" href="cuenta/cuenta.php" role="button" aria-expanded="false">
+                                    <a class="nav-link a-navbar" href="micuenta.php" role="button" aria-expanded="false">
                                         <i class="bi bi-person-circle"></i>
                                     </a>
                                 </li>
@@ -143,6 +143,7 @@
                                     <h3>🌟 Vetana de usuario  🌟</h3>
                                     <h4>Todavia queda por hacer</h4>
                                     <br>
+                                    <a href="cerrarsesion.php">Cerrar sesión</a>
                                     <br>
                                     <br>
                                     

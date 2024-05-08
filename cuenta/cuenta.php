@@ -104,7 +104,7 @@
                                 </li>
                                 <!-- ICONO USER-->
                                 <li class="nav-item">
-                                    <a class="nav-link a-navbar" href="cuenta/cuenta.php" role="button" aria-expanded="false">
+                                    <a class="nav-link a-navbar" href="cuenta.php" role="button" aria-expanded="false">
                                         <i class="bi bi-person-circle"></i>
                                     </a>
                                 </li>
