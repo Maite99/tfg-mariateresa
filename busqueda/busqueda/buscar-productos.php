@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Conexión a la base de datos
 $servername = "localhost";
 $username = "root";
@@ -129,9 +131,18 @@ $result = $conn->query($sql);
                                         Kits de regalo
                                     </a>
                                 </li>
-                                <!-- ICONO USER-->
-                                <li class="nav-item">
-                                    <a class="nav-link a-navbar" href="../../cuenta/cuenta.php" role="button" aria-expanded="false">
+                               <!-- ICONO USER -->
+                               <li class="nav-item">
+                                    <?php
+                                    // Verificar si el usuario ha iniciado sesión
+                                    if (isset($_SESSION['email-login'])) {
+                                        // Si ha iniciado sesión, dirigir al usuario a micuenta.php
+                                        echo '<a class="nav-link a-navbar" href="../../cuenta/micuenta.php" role="button" aria-expanded="false">';
+                                    } else {
+                                        // Si no ha iniciado sesión, dirigir al usuario a cuenta.php
+                                        echo '<a class="nav-link a-navbar" href="../../cuenta/cuenta.php" role="button" aria-expanded="false">';
+                                    }
+                                    ?>
                                         <i class="bi bi-person-circle"></i>
                                     </a>
                                 </li>

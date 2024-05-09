@@ -1,3 +1,31 @@
+<?php
+session_start();
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['email-login'])) {
+    // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
+    header('Location: cuenta.php');
+    exit;
+}
+
+// Obtener el correo electrónico del usuario de la sesión
+$email = $_SESSION['email-login'];
+
+// Verificar si hay una cookie de sesión establecida y si coincide con la sesión actual del usuario
+if (!isset($_COOKIE['session_id']) || $_COOKIE['session_id'] !== session_id()) {
+    // Si no hay una cookie de sesión válida o no coincide con la sesión actual del usuario, redirigir al usuario a la página de inicio de sesión
+    header('Location: cuenta.php');
+    exit;
+}
+
+// Si hay una cookie de sesión válida y coincide con la sesión actual del usuario, no es necesario redirigir
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,11 +168,19 @@
                         <div class="row">
                             <div class="col-12 ps-lg-5 ">
                                 <div class="caja-texto-productos">
-                                    <h3>🌟 Vetana de usuario  🌟</h3>
+                                    <h3>🌟 Ventana de usuario  🌟</h3>
                                     <h4>Todavia queda por hacer</h4>
                                     <br>
                                     <a href="cerrarsesion.php">Cerrar sesión</a>
                                     <br>
+                                    <?php echo "El coorreo es: " . $email; ?>
+                                    <?php
+if(count($_COOKIE) > 0) {
+  echo "Cookies are enabled.";
+} else {
+  echo "Cookies are disabled.";
+}
+?>
                                     <br>
                                     
                                 </div>   

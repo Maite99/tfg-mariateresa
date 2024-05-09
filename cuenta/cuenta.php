@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// PARA QUE SALGA EL ALERT DE ERROR
+// Verificar si hay un mensaje de error en la sesión
+if(isset($_SESSION['error'])) {
+    echo "<script>alert('" . $_SESSION['error'] . "');</script>";
+    
+    // Eliminar el mensaje de error de la sesión
+    unset($_SESSION['error']);
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,7 +193,7 @@
 
                                             
                                             
-                                            <button name="login" type="submit" class=" botones-login-register btn btn-block mt-3 " style="background-color: #b0d688; color: white; width:180px">Iniciar sesión</button>
+                                            <button name="btnlogin" type="submit" class=" botones-login-register btn btn-block mt-3 " style="background-color: #b0d688; color: white; width:180px">Iniciar sesión</button>
                                         </form>
                                 </div>
             					
