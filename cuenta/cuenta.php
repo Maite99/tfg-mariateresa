@@ -8,6 +8,8 @@ if(isset($_SESSION['error'])) {
     
     // Eliminar el mensaje de error de la sesión
     unset($_SESSION['error']);
+} else if(isset($_SESSION['success'])) {
+    echo "<script>alert('" . $_SESSION['success'] . "');</script>";
 }
 
 

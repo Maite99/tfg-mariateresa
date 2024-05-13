@@ -174,13 +174,7 @@ if (!isset($_COOKIE['session_id']) || $_COOKIE['session_id'] !== session_id()) {
                                     <a href="cerrarsesion.php">Cerrar sesión</a>
                                     <br>
                                     <?php echo "El coorreo es: " . $email; ?>
-                                    <?php
-if(count($_COOKIE) > 0) {
-  echo "Cookies are enabled.";
-} else {
-  echo "Cookies are disabled.";
-}
-?>
+                                    
                                     <br>
                                     
                                 </div>   

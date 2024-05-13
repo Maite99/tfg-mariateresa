@@ -1,81 +1,62 @@
 <?php
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+    // Verifica si se han enviado todos los campos necesarios
     if (!empty($_POST['name']) && !empty($_POST['lastname']) && !empty($_POST['email-register']) && !empty($_POST['password-register'])) {
         // Obtiene los datos del formulario
         $name = $_POST['name'];
         $lastname = $_POST['lastname'];
-        $emailregister= $_POST['email-register'];
+        $emailregister = $_POST['email-register'];
         $passwordregister = $_POST['password-register'];
-        
-        // Conexión a la bbdd
+
+        // Conexión a la base de datos
         $conn = mysqli_connect("localhost", "root", "", "tiendaonlinetfg");
 
-        // Verifica si el correo está registrado
+        // Verifica si el correo electrónico ya está registrado
         $sql_check_email = "SELECT * FROM usuarios WHERE email = '$emailregister'";
         $result_check_email = mysqli_query($conn, $sql_check_email);
 
         if (mysqli_num_rows($result_check_email) > 0) {
-            // Muestra un mensaje de error si el correo está registrado
-            echo "Este correo electrónico ya está registrado";
+            // Si el correo electrónico ya está registrado, muestra un mensaje de error
+            $_SESSION['error'] = "Este correo electrónico ya está registrado.";
+            header('Location: cuenta.php');
+            exit;
         } else {
-            // Para que no se vea la contraseña en la base de datos
+            // Hashea la contraseña antes de guardarla en la base de datos
             $hashed_password = password_hash($passwordregister, PASSWORD_DEFAULT);
 
-            $insertar = "INSERT INTO usuarios (nombre, apellidos, email, contrase_hash) VALUES ('$name', '$lastname', '$emailregister', '$hashed_password')";
-            if (mysqli_query($conn, $insertar)) {
-                header('Location: micuenta.php');
-                exit; // Termina el script después de la redirección
+            // Inserta los datos del nuevo usuario en la base de datos
+            $insert_query = "INSERT INTO usuarios (nombre, apellidos, email, contrase_hash) VALUES ('$name', '$lastname', '$emailregister', '$hashed_password')";
+
+            if (mysqli_query($conn, $insert_query)) {
+                // Si la inserción fue exitosa, redirige al usuario a su cuenta
+                $_SESSION['success'] = "¡Registro exitoso! Por favor, inicia sesión.";
+                header('Location: cuenta.php');
+                exit;
             } else {
-                // Muestra un mensaje de error si hay algún error 
-                echo "Error: " . $insertar . "<br>" . mysqli_error($conn);
+                // Si hubo un error durante la inserción, muestra un mensaje de error
+                $_SESSION['error'] = "Error al registrar el usuario. Por favor, intenta nuevamente.";
+                header('Location: cuenta.php');
+                exit;
             }
         }
-        // Cierra la conexión
+        // Cierra la conexión a la base de datos
         mysqli_close($conn);
-
-    } 
+    } else {
+        // Si faltan campos, redirige con un mensaje de error
+        $_SESSION['error'] = "Por favor, completa todos los campos.";
+        header('Location: cuenta.php');
+        exit;
+    }
+} else {
+    // Si la solicitud no es de tipo POST, redirige con un mensaje de error
+    $_SESSION['error'] = "Acceso no permitido.";
+    header('Location: cuenta.php');
+    exit;
 }
-
-// Verifica si el método de solicitud es POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica si los campos obligatorios están vacíos
-    $nombre = $_POST['name'];
-    $apellidos = $_POST['lastname'];
-    $email = $_POST['email-register'];
-    $contraseña = $_POST['password-register'];
-
-    // Array para almacenar los mensajes de advertencia
-    $mensajes_advertencia = [];
-
-    if (empty($nombre)) {
-        $mensajes_advertencia['name'] = "Por favor, introduzca un nombre.";
-    }
-
-    if (empty($apellidos)) {
-        $mensajes_advertencia['lastname'] = "Por favor, introduzca sus apellidos.";
-    }
-
-    if (empty($email)) {
-        $mensajes_advertencia['email-register'] = "Por favor, introduzca un correo electrónico.";
-    }
-
-    if (empty($contraseña)) {
-        $mensajes_advertencia['password-register'] = "Por favor, introduzca una contraseña.";
-    }
-
-    // Si hay mensajes de advertencia, muestra los mensajes en rojo
-    if (!empty($mensajes_advertencia)) {
-        echo "<div style='color: red; margin-bottom: 10px;'>Por favor, corrija los siguientes errores:</div>";
-        foreach ($mensajes_advertencia as $mensaje) {
-            echo "<div style='color: red; margin-bottom: 5px;'>$mensaje</div>";
-        }
-    }
-}
-
-
-
 ?>
+
 
 
 
