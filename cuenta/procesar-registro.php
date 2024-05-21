@@ -3,12 +3,21 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica si se han enviado todos los campos necesarios
-    if (!empty($_POST['name']) && !empty($_POST['lastname']) && !empty($_POST['email-register']) && !empty($_POST['password-register'])) {
+    if (!empty($_POST['name']) && !empty($_POST['lastname']) && !empty($_POST['number']) && !empty($_POST['adress'])&& !empty($_POST['email-register']) && !empty($_POST['password-register'])) {
         // Obtiene los datos del formulario
         $name = $_POST['name'];
         $lastname = $_POST['lastname'];
+        $number = $_POST['number'];
+        $adress = $_POST['adress'];
         $emailregister = $_POST['email-register'];
         $passwordregister = $_POST['password-register'];
+
+        // validar el número de teléfono
+        if (!preg_match('/^\d{9}$/', $number)) {
+            $_SESSION['error'] = "El número de teléfono debe tener exactamente 9 dígitos.";
+            header('Location: cuenta.php');
+            exit;
+        }
 
         // Conexión a la base de datos
         $conn = mysqli_connect("localhost", "root", "", "tiendaonlinetfg");
@@ -27,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashed_password = password_hash($passwordregister, PASSWORD_DEFAULT);
 
             // Inserta los datos del nuevo usuario en la base de datos
-            $insert_query = "INSERT INTO usuarios (nombre, apellidos, email, contrase_hash) VALUES ('$name', '$lastname', '$emailregister', '$hashed_password')";
+            $insert_query = "INSERT INTO usuarios (nombre, apellidos, telefono, direccion, email, contrase_hash) VALUES ('$name', '$lastname', '$number', '$adress','$emailregister', '$hashed_password')";
 
             if (mysqli_query($conn, $insert_query)) {
                 // Si la inserción fue exitosa, redirige al usuario a su cuenta

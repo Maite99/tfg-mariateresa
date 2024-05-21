@@ -18,12 +18,34 @@ if (!isset($_COOKIE['session_id']) || $_COOKIE['session_id'] !== session_id()) {
     exit;
 }
 
-// Si hay una cookie de sesión válida y coincide con la sesión actual del usuario, no es necesario redirigir
+
+
+// Conexión a la bbdd
+$conn = mysqli_connect("localhost", "root", "", "tiendaonlinetfg");
+
+$sql = "SELECT nombre, apellidos, telefono, direccion FROM usuarios WHERE email = '$email'";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Si se encontraron resultados, obtener y mostrar el nombre y apellidos del usuario
+    while($row = $result->fetch_assoc()) {
+        $nombre = $row["nombre"];
+        $apellidos = $row["apellidos"];
+        $telefono = ($row["telefono"] !== null) ? $row["telefono"] : "Teléfono no disponible";
+        $direccion = ($row["direccion"] !== null) ? $row["direccion"] : "Dirección no disponible";;
+    }
+} else {
+    // Si no se encontraron resultados, establecer los valores predeterminados
+    $nombre = "Nombre no disponible";
+    $apellidos = "Apellido no disponible";
+}
+
+
+
+// Cerrar conexión
+$conn->close();
 ?>
-
-
-
-
 
 
 <!DOCTYPE html>
@@ -147,7 +169,7 @@ if (!isset($_COOKIE['session_id']) || $_COOKIE['session_id'] !== session_id()) {
                                 </li>
                                  <!-- CARRITO -->
                                  <li class="nav-item">
-                                    <a class="nav-link a-navbar" href="#" role="button" aria-expanded="false">
+                                    <a class="nav-link a-navbar" href="../carrito/carrito.php" role="button" aria-expanded="false">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                 </li>
@@ -160,81 +182,119 @@ if (!isset($_COOKIE['session_id']) || $_COOKIE['session_id'] !== session_id()) {
         </header>
         <!-- FINAL HEADER -->
 
-        <!-- INICIO MAIN -->
-        <main> 
-            <!-- INICIO TEXTO -->
-                <section class="texto-productos mt-5">
-                    <div class="container">
+    <!-- INICIO MAIN -->
+
+    <main>
+
+        <!-- MI CUENTA Y CERRAR SESIÓN  -->
+       
+            <section class=" mt-5 ">
+                    <div class="container-titulo">
                         <div class="row">
-                            <div class="col-12 ps-lg-5 ">
-                                <div class="caja-texto-productos">
-                                    <h3>🌟 Ventana de usuario  🌟</h3>
-                                    <h4>Todavia queda por hacer</h4>
-                                    <br>
-                                    <a href="cerrarsesion.php">Cerrar sesión</a>
-                                    <br>
-                                    <?php echo "El coorreo es: " . $email; ?>
-                                    
-                                    <br>
-                                    
-                                </div>   
+
+                            <div class="col-lg-6 col-md-12 col-12">
+                                <div>
+                                    <h4 >Mi cuenta</h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12 col-12 ps-lg-5 ">
+                                <div>
+                                    <a class="cerrar-sesion" href="cerrarsesion.php">Cerrar sesión > </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
-        
-             <!-- FINAL TEXTO -->
 
-        </main>
+            <hr>
 
-        <!--FINAL MAIN   -->
+            <!-- HISTORIAL DE PEDIDOS Y DETALLES DE LA CUENTA-->
+
+            <section class=" mt-5 ">
+                    <div class="container-titulo">
+                        <div class="row">
+
+                            <div class="col-lg-6 col-md-12 col-12">
+                                <div>
+                                    <h4 class="titulo-micuenta">Historial de pedidos</h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12 col-12 ps-lg-5 ">
+                            <div>
+                                <h4 class="titulo-micuenta">Detalles de la cuenta</h4>
+                                <?php echo "<strong>Nombre completo: </strong> " . $nombre . " " . $apellidos?>
+                                <br>
+                                <?php echo "<strong>Email: </strong> " . $email ?>
+                                <br>
+                                <?php echo "<strong>Teléfono: </strong> " . $telefono ?>
+                                <br>
+                                <?php echo "<strong>Dirección completa: </strong> " .  $direccion ?>
+                                <br>
+                                <button class="boton-editar mt-2" onClick="window.location.href='editar-cuenta.php';">Editar</button>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+           
+              
+            
+</main>
+
+
+
+<!--FINAL MAIN   -->
 
 
         <!-- INICIO FOOTER -->
         <footer class="container-footer">
-        <div class="container  " >
-            <div class="row  d-flex flex-row">
-                <!-- PRIMERA COLUMNA FOOTER -->
-                <div class="col-4">
-                    <div class="primera-columna-footer mt-5 mb-5">
-                        <p class="enlacedeinteres "><strong>ENLACE DE INTERÉS</strong></p>
-                        <a href="../enlacesdeinteres/avisolegal.php" target="_blank">Aviso Legal</a>
-                        <br>
-                        <a href="../enlacesdeinteres/politicadeprivacidad.php" target="_blank">Política de Privacidad</a>
-                        <br>
-                        <a href="../enlacesdeinteres/politicadeenviosydevoluciones.php" target="_blank">Política de Envíos y Devoluciones</a>
-                        <br>
-                        <a href="../enlacesdeinteres/politicadecookies.php" target="_blank">Política de Cookies</a>
-                    </div>
-                </div>
-                <!-- SEGUNDA COLUMNA FOOTER -->
-                <div class="col-4">
-                    <div class="segunda-columna-footer">
-                        <p class="contacto mt-5"><strong>CONTACTO</strong></p>
-                        <p class="texto-contacto">Estaremos encantados de resolver cualquier duda que tengas. 
-                            Contáctanos en <a href="mailto:info@mistico.com?" style="color: #b0d688"> info@mistico.com </a>
+            <div class="container  " >
+                <div class="row  d-flex flex-row">
+                    <!-- PRIMERA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="primera-columna-footer mt-5 mb-5">
+                            <p class="enlacedeinteres "><strong>ENLACE DE INTERÉS</strong></p>
+                            <a href="../enlacesdeinteres/avisolegal.php" target="_blank">Aviso Legal</a>
                             <br>
-                            Whatsapp  +34 618 398 065
-                        </p>
+                            <a href="../enlacesdeinteres/politicadeprivacidad.php" target="_blank">Política de Privacidad</a>
+                            <br>
+                            <a href="../enlacesdeinteres/politicadeenviosydevoluciones.php" target="_blank">Política de Envíos y Devoluciones</a>
+                            <br>
+                            <a href="../enlacesdeinteres/politicadecookies.php" target="_blank">Política de Cookies</a>
+                        </div>
                     </div>
-                </div>
-                <!-- TERCERA COLUMNA FOOTER -->
-                <div class="col-4">
-                    <div class="tercera-columna-footer">
-                        <p class="redes mt-5"><strong>¿QUIERES SEGUIRNOS EN REDES?</strong></p>
-                        <a href="https://www.instagram.com/greenwitchart_/"><i class="bi bi-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@greenwitchart_?lang=es"><i class="bi bi-tiktok"></i></a>
-                        <a href="https://www.facebook.com/p/Green-Witch-Art-100080655604514/"><i class="bi bi-facebook"></i></a>
-                        <a href="https://www.pinterest.es/GreenWitchArt_/"><i class="bi bi-pinterest"></i></a>
+                    <!-- SEGUNDA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="segunda-columna-footer">
+                            <p class="contacto mt-5"><strong>CONTACTO</strong></p>
+                            <p class="texto-contacto">Estaremos encantados de resolver cualquier duda que tengas. 
+                                Contáctanos en <a href="mailto:info@mistico.com?" style="color: #b0d688"> info@mistico.com </a>
+                                <br>
+                                Whatsapp  +34 618 398 065
+                            </p>
+                        </div>
                     </div>
-                    
-                </div>
+                    <!-- TERCERA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="tercera-columna-footer">
+                            <p class="redes mt-5"><strong>¿QUIERES SEGUIRNOS EN REDES?</strong></p>
+                            <a href="https://www.instagram.com/greenwitchart_/"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@greenwitchart_?lang=es"><i class="bi bi-tiktok"></i></a>
+                            <a href="https://www.facebook.com/p/Green-Witch-Art-100080655604514/"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.pinterest.es/GreenWitchArt_/"><i class="bi bi-pinterest"></i></a>
+                        </div>
+                        
+                    </div>
 
+                </div>
             </div>
-        </div>
-    </footer>
-    <!-- FINAL FOOTER -->
-  </div>
+        </footer>
+        <!-- FINAL FOOTER -->
+</div>
 
 
 
@@ -245,7 +305,7 @@ if (!isset($_COOKIE['session_id']) || $_COOKIE['session_id'] !== session_id()) {
     <!-- INCLUYO JS DE BOOTSTRAP QUE INCLUYE POPPER.JS -->
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
 
-     <!-- BUSCADOR -->
+     <!-- JS BUSCADOR -->
      <script>
         document.getElementById('searchIcon').addEventListener('click', function() {
             document.getElementById('searchForm').classList.toggle('d-none');

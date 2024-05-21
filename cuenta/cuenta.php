@@ -137,7 +137,7 @@ if(isset($_SESSION['error'])) {
                                 </li>
                                  <!-- CARRITO -->
                                  <li class="nav-item">
-                                    <a class="nav-link a-navbar" href="#" role="button" aria-expanded="false">
+                                    <a class="nav-link a-navbar" href="../carrito/carrito.php" role="button" aria-expanded="false">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                 </li>
@@ -160,8 +160,6 @@ if(isset($_SESSION['error'])) {
                     <div class="col-12 ps-lg-5 ">
                         <div class="caja-texto-productos">
                             <h2>🌟 Bienvenido al Portal de Magia Interior 🌟</h2>
-                            <p class="mt-lg-2 texto1-productos">¡Entra al reino de la esencia pura y la sabiduría ancestral! En nuestro sagrado santuario digital, te invitamos a iniciar un viaje hacia lo más profundo de tu ser, donde la luz y la oscuridad convergen en perfecta armonía.</p>
-                            <p class="mt-lg-2 texto-3"> <strong>¡Permite que la magia fluya a través de ti y transforma cada instante en una experiencia celestial! ✨ </strong> </p>	
                         </div>   
                     </div>
                 </div>
@@ -223,18 +221,37 @@ if(isset($_SESSION['error'])) {
                                                 <input type="text" class="form-control mb-3" id="lastname" name="lastname">
                                                 
                                             </div>
+
+                                            <div class="form-group">
+                                                <label for="number"> Teléfono <label style="color:red" > *  </label>  </label>
+                                                <input type="text" class="form-control mb-3" id="number" name="number">  
+                                            </div>
+                                            <!-- VALIDACIÓN PARA EL TELÉFONO -->
+                                            <script>
+                                                document.getElementById('number').addEventListener('input', function () {
+                                                    var numberInput = this.value;
+                                                    var numberError = document.getElementById('numberError');
+                                                    if (/^\d{9}$/.test(numberInput)) {
+                                                        numberError.style.display = 'none';
+                                                    } else {
+                                                        numberError.style.display = 'block';
+                                                    }
+                                                });
+                                            </script>
+
+                                            <div class="form-group">
+                                                <label for="adress" > Dirección <label style="color:red" > *  </label>  </label>
+                                                <input type="text" class="form-control mb-3" id="adress" name="adress">    
+                                            </div>
+                                            
                                             <div class="form-group">
                                                 <label for="email-register"> Correo electrónico <label style="color:red" > *  </label> </label> 
                                                 <input type="text" class="form-control mb-3" id="email-register" name="email-register">
-                                                
-                                                   
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="password-register"> Contraseña <label style="color:red" > *  </label>  </label>
-                                                <input type="password" class="form-control mb-3" id="password-register" name="password-register">
-                                                
-                                                             
+                                                <input type="password" class="form-control mb-3" id="password-register" name="password-register">               
                                             </div>
                                             
                                             <button name="registrar" type="submit" class="botones-login-register btn  btn-block mt-3 " style="background-color: #b0d688; color:white; width:180px">Registrarse</button>

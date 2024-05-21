@@ -155,9 +155,9 @@ $result = $conn->query($sql);
                                         <input type="text" name="query" placeholder="Buscar productos...">
                                     </form>
                                 </li>
-                                 <!-- CARRITO -->
+                                <!-- CARRITO -->
                                  <li class="nav-item">
-                                    <a class="nav-link a-navbar" href="#" role="button" aria-expanded="false">
+                                    <a class="nav-link a-navbar" href="../../carrito/carrito.php" role="button" aria-expanded="false">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                 </li>

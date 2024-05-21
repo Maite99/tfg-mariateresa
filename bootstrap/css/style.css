@@ -11,8 +11,11 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
   overflow-x: hidden;
 }
+
+
 
 
 /* INICIO NAVBAR */
@@ -208,7 +211,7 @@ body {
 /* BUSCADOR */
 
 .buscador input{
-  width: 450px;
+  width: 150px;
   border-radius: 5px;
 }
 
@@ -261,5 +264,48 @@ body {
   align-items: center;
 
 }
+
+
+                            /* PERFIL USUARIO */
+
+/* CERRAR SESION */
+
+.cerrar-sesion{
+  text-decoration: none;
+  color: black;
+}
+
+.cerrar-sesion:hover{
+  color: #b0d688;
+}
+
+.container-titulo, .container-historial-pedidos, .container-detalles-cuenta{
+  text-align: center;
+  margin: 2%;
+ 
+}
+
+.container-historial-pedidos, .container-detalles-cuenta{
+  margin-left: 6%;
+}
+
+.titulo-micuenta{
+  text-decoration: underline;
+}
+
+.boton-editar{
+  color: white;
+  background-color: #b0d688;
+  border: none;
+  border-radius: 2px;
+  height: 15%;
+  width: 80px;
+  
+}
+
+
+
+
+
 
 

@@ -166,6 +166,48 @@ session_start();
                 echo "Error al obtener la informacion general: " . mysqli_error($conexion);
             }
 
+            // SENTENCIA PARA OBTENER EL ID DEL PRODUCTO DEL PRODUCTO 
+            $producto_id = "SELECT id FROM productos WHERE id=25";
+
+            // ESTABLECER LA QUERY PARA EL ID DEL PRODUCTO
+                $query_producto_id = mysqli_query($conexion, $producto_id);
+
+                // VERIFICAR SI LA CONSULTA FUE EXITOSA PARA EL ID DEL PRODUCTO
+                if ($query_producto_id) {
+                    // Obtener el resultado de la consulta para el id del producto
+                    $fila_producto_id = mysqli_fetch_assoc($query_producto_id);
+                    
+                    // Asignar el id del producto a la variable $producto_id
+                    $producto_id =  $fila_producto_id['id'];
+                    
+                    // Liberar el resultado
+                    mysqli_free_result($query_producto_id);
+                } else {
+                    // Si la consulta falla, mostrar un mensaje de error
+                    echo "Error al obtener el id del producto: " . mysqli_error($conexion);
+                }
+
+                // SENTENCIA PARA OBTENER LA CANTIDAD DE STOCK DEL PRODUCTO 
+            $cantidad_stock = "SELECT cantidad_stock FROM productos WHERE id=25";
+
+            // ESTABLECER LA QUERY PARA LA CANTIDAD DE STOCK DEL PRODUCTO
+                $query_cantidad_stock = mysqli_query($conexion, $cantidad_stock);
+
+                // VERIFICAR SI LA CONSULTA FUE EXITOSA PARA EL ID DE LA CANTIDAD DE STOCK
+                if ($query_cantidad_stock) {
+                    // Obtener el resultado de la consulta para el id la cantidad de stock
+                    $fila_cantidad_stock = mysqli_fetch_assoc($query_cantidad_stock);
+                    
+                    // Asignar el id del producto a la variable $cantidad_stock
+                    $cantidad_stock =  $fila_cantidad_stock['cantidad_stock'];
+                    
+                    // Liberar el resultado
+                    mysqli_free_result($query_cantidad_stock );
+                } else {
+                    // Si la consulta falla, mostrar un mensaje de error
+                    echo "Error al obtener la cantidad de stock: " . mysqli_error($conexion);
+                }
+
         // Cerrar la conexión
         mysqli_close($conexion);
 
@@ -298,9 +340,9 @@ session_start();
                                         <input type="text" name="query" placeholder="Buscar productos...">
                                     </form>
                                 </li>
-                                 <!-- CARRITO -->
+                                <!-- CARRITO -->
                                  <li class="nav-item">
-                                    <a class="nav-link a-navbar" href="#" role="button" aria-expanded="false">
+                                    <a class="nav-link a-navbar" href="../../carrito/carrito.php" role="button" aria-expanded="false">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                 </li>
@@ -332,10 +374,13 @@ session_start();
                             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                   <div class="carousel-item active">
-                                    <img src="../../img/bombita-amor.jpg" class="imagen-producto img-fluid" alt="Imagen 1">
+                                  <img src="<?php echo $imagen1 ?>" class="imagen-producto img-fluid" alt="Imagen 1" >
+
+                                   
                                   </div>
                                   <div class="carousel-item ">
-                                    <img src="../../img/bombita-herbal-amor-1.jpg" class="imagen-producto img-fluid" alt="Imagen 2">
+                                  <img src="<?php echo $imagen2 ?>" class="imagen-producto img-fluid" alt="Imagen 1" >
+                                    
                                   </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -353,16 +398,24 @@ session_start();
                      <!-- SEGUNDA COLUMNA -->
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
                         <div class="caja-texto-producto ">
-                            <h2 class="mt-5">Bombita Herbal Amor x4</h2>
-                            <h4 class="mt-3">3,65€</h4>
-                            <p class="mt-4 parrafo-producto">Estas bombitas herbales Amor están compuestas de rosas, ruda, laurel, eucalipto y cedro. Con ellas podrás limpiar las energías para atraer el amor.</p>
-                            <br>
-                            <p>Las bombitas de defumación activada de Sagrada Madre son inciensos muy potentes y poderosos*, fabricados con ingredientes 100% naturales y de manera artesanal.</p>
-                            <br>
-                            <p>Sagrada Madre es una empresa familiar argentina que fabrica inciensos y sahumerios de manera artesanal con productos naturales y ecológicos. Su lema es trabajar con la Madre Tierra, de manera sostenible y ecológica, realizando un uso consciente de los recursos y procurando un trabajo digno a las personas que conforman la empresa familiar.</p>
-                            <button class="boton-anadir mt-3">
-                                Añadir al carrito
-                            </button>
+                            <h2 class="mt-5"> <?php echo $titulo ?> </h2>
+                            <h4 class="mt-3"> <?php echo $precio ?>€ </h4>
+                            <p class="mt-4 parrafo-producto"> <?php echo $descripcion_formateada ?> </p>
+                            <p>
+                                <?php 
+                                if ($cantidad_stock > 0){
+                                    echo "Hay existencias";
+                                } else {
+                                    echo "No hay existencias";
+                                }
+                                ?>
+                            </p>
+
+                          <form action="../../carrito/agregar-carrito.php" method="post">
+                                <input type="hidden" name="producto_id" value="<?php echo $producto_id; ?>">
+                                <button type="submit" class="boton-anadir mt-3">Añadir al carrito</button>
+                            </form>
+                            </p>
                             
                         </div>
                     </div>
