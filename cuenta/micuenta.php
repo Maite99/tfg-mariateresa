@@ -43,8 +43,7 @@ if ($result->num_rows > 0) {
 
 
 
-// Cerrar conexión
-$conn->close();
+
 ?>
 
 
@@ -61,7 +60,7 @@ $conn->close();
     <!-- FUENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
 
-    <title>Místico</title>
+    <title>Mi cuenta</title>
 </head>
 <body>
   <div class="container-fluid"> 
@@ -211,19 +210,73 @@ $conn->close();
 
             <!-- HISTORIAL DE PEDIDOS Y DETALLES DE LA CUENTA-->
 
-            <section class=" mt-5 ">
-                    <div class="container-titulo">
-                        <div class="row">
+            <section class="mt-5 ">
+    <div class="container-titulo">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-12">
+                <h4 class="titulo-micuenta">Historial de pedidos</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID del Pedido</th>
+                                <th>Fecha</th>
+                                <th>Importe Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Obtener el correo electrónico del usuario de la sesión
+                            $email = $_SESSION['email-login'];
 
-                            <div class="col-lg-6 col-md-12 col-12">
-                                <div>
-                                    <h4 class="titulo-micuenta">Historial de pedidos</h4>
-                                </div>
-                            </div>
+                            // Consulta para obtener el ID de usuario asociado con el correo electrónico
+                            $query_user_id = "SELECT id FROM usuarios WHERE email = ?";
+                            $stmt_user_id = mysqli_prepare($conn, $query_user_id);
+                            mysqli_stmt_bind_param($stmt_user_id, "s", $email);
+                            mysqli_stmt_execute($stmt_user_id);
+                            $result_user_id = mysqli_stmt_get_result($stmt_user_id);
 
-                            <div class="col-lg-6 col-md-12 col-12 ps-lg-5 ">
-                            <div>
-                                <h4 class="titulo-micuenta">Detalles de la cuenta</h4>
+                            if ($result_user_id && mysqli_num_rows($result_user_id) > 0) {
+                                // Si se encontró el ID de usuario, obtener el valor
+                                $row = mysqli_fetch_assoc($result_user_id);
+                                $user_id = $row['id'];
+
+                                // Obtener los pedidos del usuario actual
+                                $query_pedidos = "SELECT id, fecha, importe_total FROM ventas WHERE id_usuario = ?";
+                                $stmt_pedidos = mysqli_prepare($conn, $query_pedidos);
+                                mysqli_stmt_bind_param($stmt_pedidos, "i", $user_id);
+                                mysqli_stmt_execute($stmt_pedidos);
+                                $result_pedidos = mysqli_stmt_get_result($stmt_pedidos);
+
+                                // Mostrar los detalles de cada pedido
+                                if ($result_pedidos && mysqli_num_rows($result_pedidos) > 0) {
+                                    while ($pedido = mysqli_fetch_assoc($result_pedidos)) {
+                                        echo "<tr>";
+                                        echo "<td><a href='../carrito/detalle-pedido.php?pedido_id=" . $pedido['id'] . "'>" . $pedido['id'] . "</a></td>";
+
+                                        echo "<td>" . $pedido['fecha'] . "</td>";
+                                        echo "<td>" . $pedido['importe_total'] . "€" . "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='3'>No se encontraron pedidos.</td></tr>";
+                                }
+                            } else {
+                                // Si no se encontró el ID de usuario, muestra un mensaje de error
+                                echo "<tr><td colspan='3'>Error: No se pudo encontrar el ID de usuario.</td></tr>";
+                            }
+
+                            // Cerrar conexión
+                            $conn->close();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-12 ps-lg-5 mt-5 mt-lg-0">
+                <div>
+                                <h4 class="titulo-micuenta ">Detalles de la cuenta</h4>
                                 <?php echo "<strong>Nombre completo: </strong> " . $nombre . " " . $apellidos?>
                                 <br>
                                 <?php echo "<strong>Email: </strong> " . $email ?>
@@ -236,10 +289,11 @@ $conn->close();
 
 
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
+        </div>
+    </div>
+</section>
+
            
               
             

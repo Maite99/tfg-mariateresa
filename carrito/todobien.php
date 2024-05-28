@@ -1,74 +1,6 @@
-<?php
+<?php 
 session_start();
-
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['email-login'])) {
-    header("Location: ../cuenta/cuenta.php");
-    exit();
-}
-
-// Verificar si el carrito no está vacío
-if (empty($_SESSION['carrito'])) {
-    die("El carrito está vacío.");
-}
-
-$conn = mysqli_connect("localhost", "root", "", "tiendaonlinetfg");
-
-if (!$conn) {
-    die("Error de conexión: " . mysqli_connect_error());
-}
-
-// Obtener los datos del usuario
-$email = $_SESSION['email-login'];
-$query = "SELECT nombre, apellidos, email, telefono, direccion FROM usuarios WHERE email = ?";
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, "s", $email);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-
-if ($result && mysqli_num_rows($result) > 0) {
-    $usuario = mysqli_fetch_assoc($result);
-} else {
-    die("Error al obtener los datos del usuario: " . mysqli_error($conn));
-}
-
-// Calcular el total del carrito
-$carrito = $_SESSION['carrito'];
-$total_carrito = 0;
-
-foreach ($carrito as $item) {
-    $producto_id = $item['producto_id'];
-    $cantidad = $item['cantidad'];
-
-    $query = "SELECT precio FROM productos WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $producto_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-        $producto = mysqli_fetch_assoc($result);
-        $total_producto = $producto['precio'] * $cantidad;
-        $total_carrito += $total_producto;
-    } else {
-        die("Error al obtener los datos del producto con ID $producto_id.");
-    }
-}
-
-// Calcular los gastos de envío
-$gastos_envio = 0;
-if ($total_carrito < 25) {
-    $gastos_envio = 2.99;
-}
-
-$total_final = $total_carrito + $gastos_envio;
-
-// Almacenar el total final en la sesión
-$_SESSION['total_final'] = $total_final;
 ?>
-
-<!-- CLIENTE ID: AU15eUGmbA750YT65pii6dYIsxIH-6mJXC5tcWNSmC60UhKr63ikQ-Asjap3JGzzz3MOvXG2XW06tFz9 -->
-<!-- CONTRASEÑA: EOvJvGc1I6PJdTfYPSKFVv04EOYSb94rfc6g6XwE0RNtQhHAPll5m7hXZxXfgXyaWdbjgDMMkLATuuAF -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,7 +14,7 @@ $_SESSION['total_final'] = $total_final;
     <!-- FUENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
     
-    <title>Místico - Checkout</title>
+    <title>Confirmación pago</title>
     <style>
         .cantidad-cell {
             display: flex;
@@ -212,129 +144,63 @@ $_SESSION['total_final'] = $total_final;
 </div>
 
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Datos del usuario</h2>
-            <p><strong>Nombre:</strong> <?php echo htmlspecialchars($usuario['nombre']); ?></p>
-            <p><strong>Apellidos:</strong> <?php echo htmlspecialchars($usuario['apellidos']); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($usuario['email']); ?></p>
-            <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($usuario['telefono']); ?></p>
-            <p><strong>Dirección:</strong> <?php echo htmlspecialchars($usuario['direccion']); ?></p>
-        </div>
-        
-        <div class="col-md-6">
-            <h2>Productos en el carrito</h2>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Nombre del producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                foreach ($carrito as $item) {
-                    $producto_id = $item['producto_id'];
-                    $cantidad = $item['cantidad'];
-
-                    $query = "SELECT nombre, precio FROM productos WHERE id = ?";
-                    $stmt = mysqli_prepare($conn, $query);
-                    mysqli_stmt_bind_param($stmt, "i", $producto_id);
-                    mysqli_stmt_execute($stmt);
-                    $result = mysqli_stmt_get_result($stmt);
-
-                    if ($result && mysqli_num_rows($result) > 0) {
-                        $producto = mysqli_fetch_assoc($result);
-                        $total_producto = $producto['precio'] * $cantidad;
-                        ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($producto['nombre']); ?></td>
-                            <td><?php echo htmlspecialchars(number_format($producto['precio'], 2)); ?> €</td>
-                            <td><?php echo htmlspecialchars($cantidad); ?></td>
-                            <td><?php echo htmlspecialchars(number_format($total_producto, 2)); ?> €</td>
-                        </tr>
-                        <?php
-                    } else {
-                        die("Error al obtener los datos del producto con ID $producto_id.");
-                    }
-                }
-
-                
-                if ($gastos_envio > 0) {
-                    ?>
-                    <tr>
-                        <td>Gastos de envío</td>
-                        <td></td>
-                        <td></td>
-                        <td><?php echo htmlspecialchars(number_format($gastos_envio, 2)); ?> €</td>
-                    </tr>
-                    <?php
-                }
-                ?>
-                </tbody>
-            </table>
-            <h3>Total final: <?php echo htmlspecialchars(number_format($total_final, 2)); ?> €</h3>
-
-            <!-- Formulario de pago -->
-            <h2 class="mt-5">Método de pago</h2>
-            
-            <div id="paypal-button-container"></div>
-
-<!-- SCRIPT SDK PAYPAL -->
-<script src="https://www.paypal.com/sdk/js?client-id=AU15eUGmbA750YT65pii6dYIsxIH-6mJXC5tcWNSmC60UhKr63ikQ-Asjap3JGzzz3MOvXG2XW06tFz9&currency=EUR&locale=es_ES"></script>
-
-<script>
-    // Asegura que el SDK esté cargado antes de usarlo
-    window.addEventListener('load', function() {
-        if (typeof paypal !== 'undefined') {
-            paypal.Buttons({
-                style: {
-                    shape: 'pill',
-                    label: 'pay'
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        // unidades que vamos a comprar
-                        purchase_units: [{
-                            amount: {
-                                // lo que tiene que pagar el usuario
-                                value: '<?php echo $total_final; ?>'
-                            }
-                        }]
-                    });
-                },
-
-                // pago aprobado
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('Transaction completed by ' + details.payer.name.given_name);
-                        console.log(details);
-                        window.location.href="confirmacion-pago.php";
-                    });
-                },
-
-                // cancelar pago
-                onCancel: function (data){
-                    alert("Pago cancelado");
-                }
-
-            }).render('#paypal-button-container');
-        } else {
-            console.error('PayPal SDK no está disponible');
-        }
-    });
-</script>
-        </div>
+<div class="container text-center mb-5">
+        <h1 class="mb-4 mt-5">¡Gracias por tu compra!</h1>
+        <p class="lead">Tu pedido ha sido confirmado con éxito.</p>
+        <p class="lead">En breves recibirás un correo con los detalles de tu pedido.</p>
+        <a href="../index.php" class="btn btn-success">Volver a la tienda</a>
     </div>
-</div>
 
 
 
+  <!-- INICIO FOOTER -->
+  <footer class="container-footer mt-5">
+        <div class="container  " >
+            <div class="row  d-flex flex-row">
+                <!-- PRIMERA COLUMNA FOOTER -->
+                <div class="col-4">
+                    <div class="primera-columna-footer mt-5 mb-5">
+                        <p class="enlacedeinteres "><strong>ENLACE DE INTERÉS</strong></p>
+                        <a href="../enlacesdeinteres/avisolegal.php" target="_blank">Aviso Legal</a>
+                        <br>
+                        <a href="../enlacesdeinteres/politicadeprivacidad.php" target="_blank">Política de Privacidad</a>
+                        <br>
+                        <a href="../enlacesdeinteres/politicadeenviosydevoluciones.php" target="_blank">Política de Envíos y Devoluciones</a>
+                        <br>
+                        <a href="../enlacesdeinteres/politicadecookies.php" target="_blank">Política de Cookies</a>
+                    </div>
+                </div>
+                <!-- SEGUNDA COLUMNA FOOTER -->
+                <div class="col-4">
+                    <div class="segunda-columna-footer">
+                        <p class="contacto mt-5"><strong>CONTACTO</strong></p>
+                        <p class="texto-contacto">Estaremos encantados de resolver cualquier duda que tengas. 
+                            Contáctanos en <a href="mailto:info@mistico.com?" style="color: #b0d688"> info@mistico.com </a>
+                            <br>
+                            Whatsapp  +34 618 398 065
+                        </p>
+                    </div>
+                </div>
+                <!-- TERCERA COLUMNA FOOTER -->
+                <div class="col-4">
+                    <div class="tercera-columna-footer">
+                        <p class="redes mt-5"><strong>¿QUIERES SEGUIRNOS EN REDES?</strong></p>
+                        <a href="https://www.instagram.com/greenwitchart_/"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@greenwitchart_?lang=es"><i class="bi bi-tiktok"></i></a>
+                        <a href="https://www.facebook.com/p/Green-Witch-Art-100080655604514/"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.pinterest.es/GreenWitchArt_/"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                    
+                </div>
 
-    <!-- INCLUYO JQUERY PARA BOOTSTRAP -->
+            </div>
+        </div>
+    </footer>
+    <!-- FINAL FOOTER -->
+    </div>
+
+
+   	<!-- INCLUYO JQUERY PARA BOOTSTRAP -->
     <script src="../bootstrap/js/jquery-3.7.1.min.js"></script>
     <!-- INCLUYO JS DE BOOTSTRAP QUE INCLUYE POPPER.JS -->
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
@@ -345,9 +211,5 @@ $_SESSION['total_final'] = $total_final;
             document.getElementById('searchForm').classList.toggle('d-none');
         });
     </script>
-
-   
-
-    
 </body>
 </html>

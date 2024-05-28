@@ -114,7 +114,27 @@ body {
   margin: 0; /* Elimina márgenes */
   padding: 0; /* Elimina relleno */
   width: 100%;
+ 
+  bottom: 0;
+  width: 100%;
 }
+
+.container-footer-carrito{
+  background-color: #222222;
+  margin: 0; /* Elimina márgenes */
+  padding: 0; /* Elimina relleno */
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* .container-footer {
+  
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0; 
+} */
 
 .enlacedeinteres, .contacto, .redes, .texto-contacto{
   color: white;

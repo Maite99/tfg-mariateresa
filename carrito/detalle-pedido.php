@@ -1,74 +1,39 @@
-<?php
+
+<?php 
 session_start();
-
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['email-login'])) {
-    header("Location: ../cuenta/cuenta.php");
-    exit();
-}
-
-// Verificar si el carrito no está vacío
-if (empty($_SESSION['carrito'])) {
-    die("El carrito está vacío.");
-}
 
 $conn = mysqli_connect("localhost", "root", "", "tiendaonlinetfg");
 
-if (!$conn) {
-    die("Error de conexión: " . mysqli_connect_error());
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['email-login'])) {
+    // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
+    header('Location: cuenta.php');
+    exit;
 }
 
-// Obtener los datos del usuario
+// Obtener el ID del pedido de la URL
+if (isset($_GET['pedido_id'])) {
+    $pedido_id = $_GET['pedido_id'];
+
+
+    // Consulta para obtener los detalles del pedido
+    $query_pedido = "SELECT * FROM detallesventas WHERE id_ventas = ?";
+    $stmt_pedido = mysqli_prepare($conn, $query_pedido);
+    mysqli_stmt_bind_param($stmt_pedido, "i", $pedido_id);
+    mysqli_stmt_execute($stmt_pedido);
+    $result_pedido = mysqli_stmt_get_result($stmt_pedido);
+}
+
+// Obtener los datos del usuario de la sesión
 $email = $_SESSION['email-login'];
-$query = "SELECT nombre, apellidos, email, telefono, direccion FROM usuarios WHERE email = ?";
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, "s", $email);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-
-if ($result && mysqli_num_rows($result) > 0) {
-    $usuario = mysqli_fetch_assoc($result);
-} else {
-    die("Error al obtener los datos del usuario: " . mysqli_error($conn));
-}
-
-// Calcular el total del carrito
-$carrito = $_SESSION['carrito'];
-$total_carrito = 0;
-
-foreach ($carrito as $item) {
-    $producto_id = $item['producto_id'];
-    $cantidad = $item['cantidad'];
-
-    $query = "SELECT precio FROM productos WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $producto_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-        $producto = mysqli_fetch_assoc($result);
-        $total_producto = $producto['precio'] * $cantidad;
-        $total_carrito += $total_producto;
-    } else {
-        die("Error al obtener los datos del producto con ID $producto_id.");
-    }
-}
-
-// Calcular los gastos de envío
-$gastos_envio = 0;
-if ($total_carrito < 25) {
-    $gastos_envio = 2.99;
-}
-
-$total_final = $total_carrito + $gastos_envio;
-
-// Almacenar el total final en la sesión
-$_SESSION['total_final'] = $total_final;
+$query_usuario = "SELECT * FROM usuarios WHERE email = ?";
+$stmt_usuario = mysqli_prepare($conn, $query_usuario);
+mysqli_stmt_bind_param($stmt_usuario, "s", $email);
+mysqli_stmt_execute($stmt_usuario);
+$result_usuario = mysqli_stmt_get_result($stmt_usuario);
+$row_usuario = mysqli_fetch_assoc($result_usuario);
 ?>
 
-<!-- CLIENTE ID: AU15eUGmbA750YT65pii6dYIsxIH-6mJXC5tcWNSmC60UhKr63ikQ-Asjap3JGzzz3MOvXG2XW06tFz9 -->
-<!-- CONTRASEÑA: EOvJvGc1I6PJdTfYPSKFVv04EOYSb94rfc6g6XwE0RNtQhHAPll5m7hXZxXfgXyaWdbjgDMMkLATuuAF -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,18 +47,10 @@ $_SESSION['total_final'] = $total_final;
     <!-- FUENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
     
-    <title>Místico - Checkout</title>
-    <style>
-        .cantidad-cell {
-            display: flex;
-            align-items: center;
-        }
-
-        .cantidad-cell button {
-            margin-right: 5px; /* Espacio entre los botones y el número */
-        }
-    </style>
+    <title>Detalle pedido</title>
 </head>
+
+
 <body>
 <div class="container-fluid">
     <header>
@@ -209,145 +166,112 @@ $_SESSION['total_final'] = $total_final;
         </nav>
         <!-- FIN NAVBAR -->
     </header>
-</div>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <h1 class="text-center mb-3">Detalles del pedido</h1>
+
+        <!-- Datos del usuario -->
+        <h2 class=" mb-3">Datos del usuario</h2>
+        <p><strong>Nombre completo:</strong> <?php echo $row_usuario['nombre'] . " " . $row_usuario['apellidos']; ?></p>
+        <p><strong>Email:</strong> <?php echo $row_usuario['email']; ?></p>
+        <p><strong>Teléfono:</strong> <?php echo $row_usuario['telefono']; ?></p>
+        <p><strong>Dirección:</strong> <?php echo $row_usuario['direccion']; ?></p>
 
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Datos del usuario</h2>
-            <p><strong>Nombre:</strong> <?php echo htmlspecialchars($usuario['nombre']); ?></p>
-            <p><strong>Apellidos:</strong> <?php echo htmlspecialchars($usuario['apellidos']); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($usuario['email']); ?></p>
-            <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($usuario['telefono']); ?></p>
-            <p><strong>Dirección:</strong> <?php echo htmlspecialchars($usuario['direccion']); ?></p>
-        </div>
         
-        <div class="col-md-6">
-            <h2>Productos en el carrito</h2>
-            <table class="table">
-                <thead>
+        <!-- Resumen de la compra -->
+        <h2 class="mt-5 text-center">Resumen de la compra</h2>
+        <table class="table">
+            <thead>
                 <tr>
-                    <th>Nombre del producto</th>
-                    <th>Precio</th>
+                    <th>Producto</th>
                     <th>Cantidad</th>
-                    <th>Total</th>
+                    <th>Importe</th>
                 </tr>
-                </thead>
-                <tbody>
-                <?php
-                foreach ($carrito as $item) {
-                    $producto_id = $item['producto_id'];
-                    $cantidad = $item['cantidad'];
+            </thead>
+            <tbody>
+                <?php 
+                // Realizar la consulta para obtener los detalles de la compra
+                if(isset($pedido_id)){
+                    $query_detalles = "SELECT productos.nombre AS producto, detallesventas.cantidad, detallesventas.importe 
+                                        FROM detallesventas 
+                                        INNER JOIN productos ON detallesventas.id_producto = productos.id 
+                                        WHERE detallesventas.id_ventas = ?";
+                    $stmt_detalles = mysqli_prepare($conn, $query_detalles);
+                    mysqli_stmt_bind_param($stmt_detalles, "i", $pedido_id); // $pedido_id debe ser el ID de la venta específica que estás visualizando
+                    mysqli_stmt_execute($stmt_detalles);
+                    $result_detalles = mysqli_stmt_get_result($stmt_detalles);
 
-                    $query = "SELECT nombre, precio FROM productos WHERE id = ?";
-                    $stmt = mysqli_prepare($conn, $query);
-                    mysqli_stmt_bind_param($stmt, "i", $producto_id);
-                    mysqli_stmt_execute($stmt);
-                    $result = mysqli_stmt_get_result($stmt);
-
-                    if ($result && mysqli_num_rows($result) > 0) {
-                        $producto = mysqli_fetch_assoc($result);
-                        $total_producto = $producto['precio'] * $cantidad;
-                        ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($producto['nombre']); ?></td>
-                            <td><?php echo htmlspecialchars(number_format($producto['precio'], 2)); ?> €</td>
-                            <td><?php echo htmlspecialchars($cantidad); ?></td>
-                            <td><?php echo htmlspecialchars(number_format($total_producto, 2)); ?> €</td>
-                        </tr>
-                        <?php
-                    } else {
-                        die("Error al obtener los datos del producto con ID $producto_id.");
-                    }
-                }
-
+                    // Mostrar los detalles de la compra en la tabla
+                    while ($row_detalles = mysqli_fetch_assoc($result_detalles)) {
+                ?>
                 
-                if ($gastos_envio > 0) {
-                    ?>
-                    <tr>
-                        <td>Gastos de envío</td>
-                        <td></td>
-                        <td></td>
-                        <td><?php echo htmlspecialchars(number_format($gastos_envio, 2)); ?> €</td>
-                    </tr>
-                    <?php
+                <tr>
+                    <td><?php echo $row_detalles['producto']; ?></td>
+                    <td><?php echo $row_detalles['cantidad']; ?></td>
+                    <td><?php echo $row_detalles['importe']; ?>€</td>
+                </tr>
+                <?php 
+                    } 
+                } else {
+                    echo "<tr><td colspan='3'>No se encontraron detalles de compra para este pedido.</td></tr>";
                 }
                 ?>
-                </tbody>
-            </table>
-            <h3>Total final: <?php echo htmlspecialchars(number_format($total_final, 2)); ?> €</h3>
+            </tbody>
+        </table>
 
-            <!-- Formulario de pago -->
-            <h2 class="mt-5">Método de pago</h2>
-            
-            <div id="paypal-button-container"></div>
+        
 
-<!-- SCRIPT SDK PAYPAL -->
-<script src="https://www.paypal.com/sdk/js?client-id=AU15eUGmbA750YT65pii6dYIsxIH-6mJXC5tcWNSmC60UhKr63ikQ-Asjap3JGzzz3MOvXG2XW06tFz9&currency=EUR&locale=es_ES"></script>
-
-<script>
-    // Asegura que el SDK esté cargado antes de usarlo
-    window.addEventListener('load', function() {
-        if (typeof paypal !== 'undefined') {
-            paypal.Buttons({
-                style: {
-                    shape: 'pill',
-                    label: 'pay'
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        // unidades que vamos a comprar
-                        purchase_units: [{
-                            amount: {
-                                // lo que tiene que pagar el usuario
-                                value: '<?php echo $total_final; ?>'
-                            }
-                        }]
-                    });
-                },
-
-                // pago aprobado
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('Transaction completed by ' + details.payer.name.given_name);
-                        console.log(details);
-                        window.location.href="confirmacion-pago.php";
-                    });
-                },
-
-                // cancelar pago
-                onCancel: function (data){
-                    alert("Pago cancelado");
-                }
-
-            }).render('#paypal-button-container');
-        } else {
-            console.error('PayPal SDK no está disponible');
-        }
-    });
-</script>
-        </div>
     </div>
-</div>
+
+    <!-- INICIO FOOTER -->
+    <footer class="container-footer">
+            <div class="container  " >
+                <div class="row  d-flex flex-row">
+                    <!-- PRIMERA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="primera-columna-footer mt-5 mb-5">
+                            <p class="enlacedeinteres "><strong>ENLACE DE INTERÉS</strong></p>
+                            <a href="../enlacesdeinteres/avisolegal.php" target="_blank">Aviso Legal</a>
+                            <br>
+                            <a href="../enlacesdeinteres/politicadeprivacidad.php" target="_blank">Política de Privacidad</a>
+                            <br>
+                            <a href="../enlacesdeinteres/politicadeenviosydevoluciones.php" target="_blank">Política de Envíos y Devoluciones</a>
+                            <br>
+                            <a href="../enlacesdeinteres/politicadecookies.php" target="_blank">Política de Cookies</a>
+                        </div>
+                    </div>
+                    <!-- SEGUNDA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="segunda-columna-footer">
+                            <p class="contacto mt-5"><strong>CONTACTO</strong></p>
+                            <p class="texto-contacto">Estaremos encantados de resolver cualquier duda que tengas. 
+                                Contáctanos en <a href="mailto:info@mistico.com?" style="color: #b0d688"> info@mistico.com </a>
+                                <br>
+                                Whatsapp  +34 618 398 065
+                            </p>
+                        </div>
+                    </div>
+                    <!-- TERCERA COLUMNA FOOTER -->
+                    <div class="col-4">
+                        <div class="tercera-columna-footer">
+                            <p class="redes mt-5"><strong>¿QUIERES SEGUIRNOS EN REDES?</strong></p>
+                            <a href="https://www.instagram.com/greenwitchart_/"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@greenwitchart_?lang=es"><i class="bi bi-tiktok"></i></a>
+                            <a href="https://www.facebook.com/p/Green-Witch-Art-100080655604514/"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.pinterest.es/GreenWitchArt_/"><i class="bi bi-pinterest"></i></a>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+        <!-- FINAL FOOTER -->
 
 
 
 
-    <!-- INCLUYO JQUERY PARA BOOTSTRAP -->
-    <script src="../bootstrap/js/jquery-3.7.1.min.js"></script>
-    <!-- INCLUYO JS DE BOOTSTRAP QUE INCLUYE POPPER.JS -->
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-
-    <!-- BUSCADOR -->
-    <script>
-        document.getElementById('searchIcon').addEventListener('click', function() {
-            document.getElementById('searchForm').classList.toggle('d-none');
-        });
-    </script>
-
-   
-
-    
 </body>
 </html>

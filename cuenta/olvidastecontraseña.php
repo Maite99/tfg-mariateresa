@@ -11,7 +11,7 @@
     <!-- FUENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
 
-    <title>Místico</title>
+    <title>¿Olvidaste la contraseña?</title>
 </head>
 <body>
   <div class="container-fluid"> 

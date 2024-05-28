@@ -29,7 +29,7 @@ if(isset($_SESSION['error'])) {
     <!-- FUENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
 
-    <title>Místico</title>
+    <title>Cuenta</title>
 </head>
 <body>
   <div class="container-fluid"> 

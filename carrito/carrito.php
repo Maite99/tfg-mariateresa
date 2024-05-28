@@ -32,7 +32,7 @@ $total_carrito = 0;
     <!-- FUENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
 
-    <title>Místico</title>
+    <title>Místico- Carrito</title>
     <style>
   .cantidad-cell {
     display: flex;
@@ -250,11 +250,11 @@ $total_carrito = 0;
         ?>
 
          <!-- INICIO FOOTER -->
-       <footer class="container-footer">
+       <!-- <footer class="container-footer mt-5">
         <div class="container  " >
-            <div class="row  d-flex flex-row">
+            <div class="row  d-flex flex-row"> -->
                 <!-- PRIMERA COLUMNA FOOTER -->
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <div class="primera-columna-footer mt-5 mb-5">
                         <p class="enlacedeinteres "><strong>ENLACE DE INTERÉS</strong></p>
                         <a href="../enlacesdeinteres/avisolegal.php" target="_blank">Aviso Legal</a>
@@ -265,9 +265,9 @@ $total_carrito = 0;
                         <br>
                         <a href="../enlacesdeinteres/politicadecookies.php" target="_blank">Política de Cookies</a>
                     </div>
-                </div>
+                </div> -->
                 <!-- SEGUNDA COLUMNA FOOTER -->
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <div class="segunda-columna-footer">
                         <p class="contacto mt-5"><strong>CONTACTO</strong></p>
                         <p class="texto-contacto">Estaremos encantados de resolver cualquier duda que tengas. 
@@ -276,9 +276,9 @@ $total_carrito = 0;
                             Whatsapp  +34 618 398 065
                         </p>
                     </div>
-                </div>
+                </div> -->
                 <!-- TERCERA COLUMNA FOOTER -->
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <div class="tercera-columna-footer">
                         <p class="redes mt-5"><strong>¿QUIERES SEGUIRNOS EN REDES?</strong></p>
                         <a href="https://www.instagram.com/greenwitchart_/"><i class="bi bi-instagram"></i></a>
@@ -291,7 +291,7 @@ $total_carrito = 0;
 
             </div>
         </div>
-    </footer>
+    </footer> -->
     <!-- FINAL FOOTER -->
     </div>
 
