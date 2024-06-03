@@ -111,22 +111,22 @@ body {
 /*INICIO FOOTER */
 .container-footer{
   background-color: #222222;
-  margin: 0; /* Elimina márgenes */
-  padding: 0; /* Elimina relleno */
   width: 100%;
- 
   bottom: 0;
   width: 100%;
 }
 
 .container-footer-carrito{
   background-color: #222222;
-  margin: 0; /* Elimina márgenes */
-  padding: 0; /* Elimina relleno */
   width: 100%;
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+footer .container {
+  max-width: 100%;
+  padding: 0 15px; /* Padding horizontal según el contenedor de Bootstrap */
 }
 
 /* .container-footer {

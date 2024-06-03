@@ -144,14 +144,22 @@ session_start();
 </div>
 
 
-<div class="container text-center mb-5">
+<div class="container text-center mb-5 mt-5">
         <h1 class="mb-4 mt-5">¡Gracias por tu compra!</h1>
         <p class="lead">Tu pedido ha sido confirmado con éxito.</p>
         <p class="lead">En breves recibirás un correo con los detalles de tu pedido.</p>
         <a href="../index.php" class="btn btn-success">Volver a la tienda</a>
     </div>
 
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
   <!-- INICIO FOOTER -->
   <footer class="container-footer mt-5">

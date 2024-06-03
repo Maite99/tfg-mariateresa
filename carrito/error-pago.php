@@ -148,4 +148,4 @@ session_start();
 </div>
 
 
-<h2>ERROR</h2>
+<h2 class="text-center mt-5">ERROR PAGO</h2>

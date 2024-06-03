@@ -61,6 +61,7 @@ if ($result->num_rows > 0) {
     <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
 
     <title>Mi cuenta</title>
+    
 </head>
 <body>
   <div class="container-fluid"> 
@@ -210,9 +211,9 @@ if ($result->num_rows > 0) {
 
             <!-- HISTORIAL DE PEDIDOS Y DETALLES DE LA CUENTA-->
 
-            <section class="mt-5 ">
-    <div class="container-titulo">
-        <div class="row">
+            <section class="mt-5">
+    <div class="container-titulo ajustar-margin mt-5">
+        <div class="row  ">
             <div class="col-lg-6 col-md-12 col-12">
                 <h4 class="titulo-micuenta">Historial de pedidos</h4>
                 <div class="table-responsive">
@@ -298,6 +299,14 @@ if ($result->num_rows > 0) {
               
             
 </main>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 

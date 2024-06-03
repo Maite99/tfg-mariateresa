@@ -228,7 +228,8 @@ $conn->close();
     </main>
 
 <!--FINAL MAIN   -->
-
+<br>
+            <br>
 
         <!-- INICIO FOOTER -->
         <footer class="container-footer">

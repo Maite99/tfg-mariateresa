@@ -213,6 +213,9 @@ $result = $conn->query($sql);
             </div>
         </main>
 
+        <br>
+            <br>
+            
         <!-- INICIO FOOTER -->
         <footer class="container-footer">
                 <div class="container-footer-busqueda container " >
@@ -256,6 +259,7 @@ $result = $conn->query($sql);
                     </div>
                 </div>
             </footer>
+
             <!-- FINAL FOOTER -->
 
              	<!-- INCLUYO JQUERY PARA BOOTSTRAP -->

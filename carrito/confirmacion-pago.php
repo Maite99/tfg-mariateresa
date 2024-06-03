@@ -54,6 +54,7 @@ if (!isset($_SESSION['carrito'])) {
 
 // Obtener el contenido del carrito de la sesión
 $carrito = $_SESSION['carrito'];
+$_SESSION['venta_id'] = $venta_id;
 
     // Insertar detalles de la venta y actualizar el stock de productos
     foreach ($carrito as $item) {
@@ -92,9 +93,9 @@ $carrito = $_SESSION['carrito'];
     unset($_SESSION['carrito']);
     unset($_SESSION['total_final']);
 
-    // Redirigir a una página de confirmación exitosa
-    header('Location: todobien.php');
-    exit();
+    // Redirigir a la página de email-pedido.php con el ID de la venta en la URL
+header("Location: email-pedido.php?venta_id=$venta_id");
+exit();
 
 } catch (Exception $e) {
     // Revertir la transacción en caso de error
