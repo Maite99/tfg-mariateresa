@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (mysqli_query($conn, $insert_query)) {
                 // Si la inserción fue exitosa, redirige al usuario a su cuenta
-                $_SESSION['success'] = "¡Registro exitoso! Por favor, inicia sesión.";
+                $_SESSION['success'] = "Se ha registrado correctamente, por favor inicie sesión";
                 header('Location: cuenta.php');
                 exit;
             } else {
